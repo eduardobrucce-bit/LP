@@ -47,53 +47,87 @@ function useCountdown(initialSeconds: number) {
 }
 
 function ProfileCarousel() {
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const rafRef = useRef<number>(0);
+  const pausedRef = useRef(false);
+  const CARD_W = 200;
+  const GAP = 12;
+  const STEP = CARD_W + GAP;
+  const TOTAL = PROFILES.length * STEP;
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setAnimating(true);
-      setTimeout(() => {
-        setCurrent((c) => (c + 1) % PROFILES.length);
-        setAnimating(false);
-      }, 350);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
+    let last = 0;
+    const speed = 0.6;
 
-  const p = PROFILES[current];
+    const tick = (ts: number) => {
+      if (!pausedRef.current) {
+        const delta = last ? Math.min(ts - last, 50) : 0;
+        setOffset((prev) => {
+          let next = prev + speed * (delta / 16);
+          if (next >= TOTAL) next -= TOTAL;
+          return next;
+        });
+      }
+      last = ts;
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [TOTAL]);
+
+  const doubled = [...PROFILES, ...PROFILES];
 
   return (
-    <div className="relative w-full bg-black overflow-hidden" style={{ height: "420px" }}>
-      <img
-        key={current}
-        src={p.bg}
-        alt={p.name}
-        className="w-full h-full object-cover object-top"
-        style={{
-          transition: "opacity 0.35s ease",
-          opacity: animating ? 0 : 1,
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-        <p className="text-white text-xl font-black">{p.name}</p>
-        <div className="flex items-center gap-2 mt-1">
-          <span className={`w-3 h-3 rounded-full ${p.online ? "bg-green-400" : "bg-gray-400"}`}
-            style={p.online ? { boxShadow: "0 0 6px #22c55e" } : {}} />
-          <span className="text-sm text-white/90 font-semibold">
-            {p.online ? "Online agora" : "Offline"}
-          </span>
-        </div>
-      </div>
-      <div className="absolute bottom-4 right-4 flex gap-1.5 z-10">
-        {PROFILES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full transition-all ${i === current ? "bg-red-500 w-5" : "bg-white/40"}`}
-          />
-        ))}
+    <div
+      className="relative w-full bg-[#111] overflow-hidden py-3"
+      style={{ height: "300px" }}
+      onMouseEnter={() => { pausedRef.current = true; }}
+      onMouseLeave={() => { pausedRef.current = false; }}
+    >
+      <div
+        className="flex gap-3 absolute top-3"
+        style={{ transform: `translateX(${-offset}px)`, willChange: "transform" }}
+      >
+        {doubled.map((p, i) => {
+          const pos = (i * STEP - offset + TOTAL * 2) % TOTAL;
+          const isCenter = pos > STEP * 0.8 && pos < STEP * 2.5;
+          return (
+            <div
+              key={i}
+              className="relative flex-shrink-0 rounded-2xl overflow-hidden"
+              style={{
+                width: `${CARD_W}px`,
+                height: "270px",
+                transform: isCenter ? "scale(1.05)" : "scale(0.92)",
+                transition: "transform 0.3s ease",
+                boxShadow: isCenter ? "0 0 0 2px #dc2626, 0 8px 24px rgba(0,0,0,0.6)" : "0 4px 12px rgba(0,0,0,0.4)",
+              }}
+            >
+              <img
+                src={p.bg}
+                alt={p.name}
+                className="w-full h-full object-cover object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <p className="text-white font-black text-sm leading-tight">{p.name}</p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{
+                      background: p.online ? "#22c55e" : "#9ca3af",
+                      boxShadow: p.online ? "0 0 5px #22c55e" : "none",
+                    }}
+                  />
+                  <span className="text-xs text-white/90 font-semibold">
+                    {p.online ? "Online agora" : "Offline"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
