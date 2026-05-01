@@ -90,8 +90,6 @@ function ProfileCarousel() {
         style={{ transform: `translateX(${-offset}px)`, willChange: "transform" }}
       >
         {doubled.map((p, i) => {
-          const pos = (i * STEP - offset + TOTAL * 2) % TOTAL;
-          const isCenter = pos > STEP * 0.8 && pos < STEP * 2.5;
           return (
             <div
               key={i}
@@ -99,9 +97,7 @@ function ProfileCarousel() {
               style={{
                 width: `${CARD_W}px`,
                 height: "270px",
-                transform: isCenter ? "scale(1.05)" : "scale(0.92)",
-                transition: "transform 0.3s ease",
-                boxShadow: isCenter ? "0 0 0 2px #dc2626, 0 8px 24px rgba(0,0,0,0.6)" : "0 4px 12px rgba(0,0,0,0.4)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
               }}
             >
               <img
