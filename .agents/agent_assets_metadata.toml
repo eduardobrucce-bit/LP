@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "R8UheHFt932b60zFGm3q3"
+uri = "file://grupo-vip-netlify.zip"
+type = "unspecified"
+title = "grupo-vip-netlify.zip — Build para Netlify"
