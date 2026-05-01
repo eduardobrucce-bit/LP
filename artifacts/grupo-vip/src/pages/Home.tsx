@@ -1,36 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 
 const PROFILES = [
-  {
-    name: "Bianca, 35",
-    online: true,
-    bg: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Carla, 28",
-    online: true,
-    bg: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Amanda, 32",
-    online: true,
-    bg: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Fernanda, 30",
-    online: false,
-    bg: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Julia, 25",
-    online: true,
-    bg: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Patricia, 29",
-    online: true,
-    bg: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=300&h=400&fit=crop&crop=face",
-  },
+  { name: "Bianca, 35",   online: true,  bg: "/p1.png" },
+  { name: "Carla, 28",    online: true,  bg: "/p2.jpg" },
+  { name: "Amanda, 32",   online: true,  bg: "/p3.png" },
+  { name: "Fernanda, 30", online: true,  bg: "/p4.png" },
+  { name: "Julia, 25",    online: true,  bg: "/p5.jpeg" },
+  { name: "Patricia, 29", online: false, bg: "/p6.jpeg" },
 ];
 
 const REVIEWS = [
@@ -68,6 +44,59 @@ function useCountdown(initialSeconds: number) {
     mins: String(mins).padStart(2, "0"),
     secs: String(secs).padStart(2, "0"),
   };
+}
+
+function ProfileCarousel() {
+  const [current, setCurrent] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAnimating(true);
+      setTimeout(() => {
+        setCurrent((c) => (c + 1) % PROFILES.length);
+        setAnimating(false);
+      }, 350);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const p = PROFILES[current];
+
+  return (
+    <div className="relative w-full bg-black overflow-hidden" style={{ height: "420px" }}>
+      <img
+        key={current}
+        src={p.bg}
+        alt={p.name}
+        className="w-full h-full object-cover object-top"
+        style={{
+          transition: "opacity 0.35s ease",
+          opacity: animating ? 0 : 1,
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+        <p className="text-white text-xl font-black">{p.name}</p>
+        <div className="flex items-center gap-2 mt-1">
+          <span className={`w-3 h-3 rounded-full ${p.online ? "bg-green-400" : "bg-gray-400"}`}
+            style={p.online ? { boxShadow: "0 0 6px #22c55e" } : {}} />
+          <span className="text-sm text-white/90 font-semibold">
+            {p.online ? "Online agora" : "Offline"}
+          </span>
+        </div>
+      </div>
+      <div className="absolute bottom-4 right-4 flex gap-1.5 z-10">
+        {PROFILES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2 h-2 rounded-full transition-all ${i === current ? "bg-red-500 w-5" : "bg-white/40"}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -109,27 +138,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* PROFILES GRID */}
-      <div className="grid grid-cols-3 gap-1 px-1 py-2 bg-[#111]">
-        {PROFILES.map((p) => (
-          <div key={p.name} className="profile-card aspect-[3/4] cursor-pointer">
-            <img
-              src={p.bg}
-              alt={p.name}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-2 z-10">
-              <p className="text-white text-xs font-bold leading-tight">{p.name}</p>
-              <div className="flex items-center gap-1 mt-0.5">
-                <span className={`w-2 h-2 rounded-full ${p.online ? "bg-green-400" : "bg-gray-400"}`} />
-                <span className="text-[10px] text-white/90">
-                  {p.online ? "Online agora" : "Offline"}
-                </span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* PROFILES CAROUSEL */}
+      <ProfileCarousel />
 
       {/* COUNTDOWN + OFFER */}
       <div className="bg-[#111] px-4 py-6 text-center">
