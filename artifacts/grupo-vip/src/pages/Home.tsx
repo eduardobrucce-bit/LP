@@ -92,13 +92,12 @@ export default function Home() {
       </div>
 
       {/* HERO IMAGE */}
-      <div className="relative w-full aspect-video overflow-hidden bg-black">
+      <div className="relative w-full overflow-hidden bg-black">
         <img
-          src="https://images.unsplash.com/photo-1522329333197-befad4ed8aed?w=500&h=300&fit=crop"
+          src="/hero.png"
           alt="grupo"
-          className="w-full h-full object-cover opacity-90"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
 
       {/* ONLINE COUNT */}
