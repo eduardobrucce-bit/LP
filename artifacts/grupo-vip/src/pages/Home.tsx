@@ -1,5 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 
+function goTo(baseUrl: string) {
+  const currentParams = new URLSearchParams(window.location.search);
+  const checkoutUrl = new URL(baseUrl);
+  currentParams.forEach((value, key) => {
+    checkoutUrl.searchParams.set(key, value);
+  });
+  window.location.href = checkoutUrl.toString();
+}
+
+const URL_BASIC = "https://pay.lowify.com.br/checkout.php?product_id=pDl0qi";
+const URL_VIP   = "https://pay.lowify.com.br/checkout.php?product_id=iPDYAU";
+
 const PROFILES = [
   { name: "Bianca, 35",   online: true,  bg: "/p1.png" },
   { name: "Carla, 28",    online: true,  bg: "/p2.jpg" },
@@ -210,9 +222,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <a href="https://pay.lowify.com.br/checkout.php?product_id=pDl0qi" target="_blank" rel="noopener noreferrer" className="glow-btn block w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider text-center">
+          <button onClick={() => goTo(URL_BASIC)} className="glow-btn w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider">
             QUERO ESSE
-          </a>
+          </button>
           <p className="text-center text-white/50 text-xs mt-2">🔒 Pagamento Seguro e Discreto</p>
         </div>
 
@@ -245,9 +257,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <a href="https://pay.lowify.com.br/checkout.php?product_id=iPDYAU" target="_blank" rel="noopener noreferrer" className="glow-btn block w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider text-center">
+          <button onClick={() => goTo(URL_VIP)} className="glow-btn w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider">
             GARANTIR MINHA VAGA VIP
-          </a>
+          </button>
           <p className="text-center text-white/50 text-xs mt-2">🔒 Cobrança Discreta na Fatura</p>
         </div>
 
@@ -295,9 +307,9 @@ export default function Home() {
         </div>
 
         {/* CTA BUTTON */}
-        <a href="https://pay.lowify.com.br/checkout.php?product_id=iPDYAU" target="_blank" rel="noopener noreferrer" className="glow-btn block w-full bg-red-600 hover:bg-red-500 text-white font-black text-xl uppercase py-5 rounded-full tracking-wider text-center">
+        <button onClick={() => goTo(URL_VIP)} className="glow-btn w-full bg-red-600 hover:bg-red-500 text-white font-black text-xl uppercase py-5 rounded-full tracking-wider">
           ENTRAR AGORA
-        </a>
+        </button>
       </div>
     </div>
   );
