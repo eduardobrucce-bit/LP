@@ -210,9 +210,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <button className="glow-btn w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider">
+          <a href="https://pay.lowify.com.br/checkout.php?product_id=pDl0qi" target="_blank" rel="noopener noreferrer" className="glow-btn block w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider text-center">
             QUERO ESSE
-          </button>
+          </a>
           <p className="text-center text-white/50 text-xs mt-2">🔒 Pagamento Seguro e Discreto</p>
         </div>
 
@@ -245,9 +245,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <button className="glow-btn w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider">
+          <a href="https://pay.lowify.com.br/checkout.php?product_id=iPDYAU" target="_blank" rel="noopener noreferrer" className="glow-btn block w-full bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider text-center">
             GARANTIR MINHA VAGA VIP
-          </button>
+          </a>
           <p className="text-center text-white/50 text-xs mt-2">🔒 Cobrança Discreta na Fatura</p>
         </div>
 
@@ -295,9 +295,9 @@ export default function Home() {
         </div>
 
         {/* CTA BUTTON */}
-        <button className="glow-btn w-full bg-red-600 hover:bg-red-500 text-white font-black text-xl uppercase py-5 rounded-full tracking-wider">
+        <a href="https://pay.lowify.com.br/checkout.php?product_id=iPDYAU" target="_blank" rel="noopener noreferrer" className="glow-btn block w-full bg-red-600 hover:bg-red-500 text-white font-black text-xl uppercase py-5 rounded-full tracking-wider text-center">
           ENTRAR AGORA
-        </button>
+        </a>
       </div>
     </div>
   );
