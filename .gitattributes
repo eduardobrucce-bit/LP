@@ -1,0 +1,2 @@
+artifacts/grupo-vip/public/vsl.mov filter=lfs diff=lfs merge=lfs -text
+attached_assets/Landing_page_1782886071145.mov filter=lfs diff=lfs merge=lfs -text
