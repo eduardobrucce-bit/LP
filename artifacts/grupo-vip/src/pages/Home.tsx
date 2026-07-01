@@ -1,12 +1,30 @@
 import { useEffect, useState, useRef } from "react";
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    utmify?: (...args: unknown[]) => void;
+  }
+}
+
 function goTo(baseUrl: string) {
   const currentParams = new URLSearchParams(window.location.search);
   const checkoutUrl = new URL(baseUrl);
+
+  // Forward all tracking params (UTMs, fbclid, sck, src, etc.)
   currentParams.forEach((value, key) => {
     checkoutUrl.searchParams.set(key, value);
   });
-  window.location.href = checkoutUrl.toString();
+
+  // Fire Facebook Pixel InitiateCheckout before redirect
+  if (typeof window.fbq === "function") {
+    window.fbq("track", "InitiateCheckout");
+  }
+
+  // Small delay to ensure pixel fires before navigation
+  setTimeout(() => {
+    window.location.href = checkoutUrl.toString();
+  }, 300);
 }
 
 const URL_BASIC = "https://pay.lowify.com.br/checkout.php?product_id=pDl0qi";
