@@ -190,7 +190,7 @@ export default function Home() {
       </div>
 
       {/* VSL */}
-      <div className="bg-[#111] px-4 py-6 flex flex-col items-center border-b border-white/10">
+      <div className="bg-[#111] px-4 py-6 flex flex-col items-center">
         <div className="relative w-full max-w-xl aspect-video bg-black rounded-lg overflow-hidden">
           <video
             ref={videoRef}
@@ -222,13 +222,10 @@ export default function Home() {
             )}
           </button>
         </div>
-      </div>
 
-      {/* VSL CTA */}
-      <div className="bg-[#111] px-4 pb-6 flex flex-col items-center">
         <button
           onClick={() => document.getElementById("ofertas")?.scrollIntoView({ behavior: "smooth" })}
-          className="glow-btn w-full max-w-xl bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider animate-pulse"
+          className="glow-btn w-full max-w-xl bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider animate-pulse mt-4"
         >
           🔥 QUERO ENTRAR AGORA
         </button>
