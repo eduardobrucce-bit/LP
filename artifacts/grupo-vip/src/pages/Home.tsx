@@ -212,7 +212,7 @@ export default function Home() {
         <div className="relative w-full max-w-xl aspect-video bg-black rounded-lg overflow-hidden">
           <video
             ref={videoRef}
-            src="/vsl.mov"
+            src="/vsl.mp4"
             autoPlay
             muted
             playsInline
