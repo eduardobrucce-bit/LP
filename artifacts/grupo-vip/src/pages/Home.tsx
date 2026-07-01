@@ -224,11 +224,22 @@ export default function Home() {
         </div>
       </div>
 
+      {/* VSL CTA */}
+      <div className="bg-[#111] px-4 pb-6 flex flex-col items-center">
+        <button
+          onClick={() => document.getElementById("ofertas")?.scrollIntoView({ behavior: "smooth" })}
+          className="glow-btn w-full max-w-xl bg-red-600 hover:bg-red-500 text-white font-black text-lg uppercase py-4 rounded-full tracking-wider animate-pulse"
+        >
+          🔥 QUERO ENTRAR AGORA
+        </button>
+        <p className="text-white/40 text-xs mt-2">🔒 Pagamento Seguro e Discreto</p>
+      </div>
+
       {/* PROFILES CAROUSEL */}
       <ProfileCarousel />
 
       {/* COUNTDOWN + OFFER */}
-      <div className="bg-[#111] px-4 py-6 text-center">
+      <div id="ofertas" className="bg-[#111] px-4 py-6 text-center">
         <p className="text-red-500 font-black text-sm uppercase tracking-widest mb-3">
           OFERTA EXPIRA EM:
         </p>
