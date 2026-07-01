@@ -180,6 +180,13 @@ export default function Home() {
         </div>
       </div>
 
+      {/* VSL */}
+      <div className="bg-[#111] px-4 py-6 flex flex-col items-center border-b border-white/10">
+        <div className="w-full max-w-xl aspect-video bg-black rounded-lg overflow-hidden">
+          {/* Cole aqui o embed da sua VSL */}
+        </div>
+      </div>
+
       {/* PROFILES CAROUSEL */}
       <ProfileCarousel />
 
