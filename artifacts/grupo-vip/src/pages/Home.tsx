@@ -27,8 +27,8 @@ function goTo(baseUrl: string) {
   }, 300);
 }
 
-const URL_BASIC = "https://diretopay.netlify.app/p/9192a70c-c32c-4b94-8638-a44758666d12";
-const URL_VIP   = "https://diretopay.netlify.app/p/9192a70c-c32c-4b94-8638-a44758666d12?o=0u1uanh8j";
+const URL_BASIC = "https://pay.lowify.com.br/checkout.php?product_id=pDl0qi";
+const URL_VIP   = "https://pay.lowify.com.br/checkout.php?product_id=iPDYAU";
 
 const PROFILES = [
   { name: "Bianca, 35",   online: true,  bg: "/p1.png" },
